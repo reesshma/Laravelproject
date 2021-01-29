@@ -1,0 +1,4 @@
+
+Hello, {{ $name }}.
+age, {{ $age }}.
+
