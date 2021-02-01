@@ -1,21 +1,32 @@
 <h1> USER LIST </h1>
 <table border="2">
     <tr>
-        <td> Name </td>
-        <td> Age </td>
-        <td> PhoneNumber </td>
-        <td> Email </td>
-        <td> Operation </td>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Age</td>
+        <td>PhoneNumber</td>
+        <td>Email</td>
+        <td>Operation</td>
+        <td>Operation</td>
     </tr>    
 
 
-@forelse($users as $Models)
+@forelse($users as $model)
 <tr>
-            <td>{{ $Models->name }}</td>
-            <td>{{ $Models->age }}</td>
-            <td>{{ $Models->phone_name }}</td>
-            <td>{{ $Models->email }}</td>
+            <td>{{$model->id}}</td>
+            <td>{{$model->name}}</td>
+            <td>{{$model->age}}</td>
+            <td>{{$model->phone_number}}</td>
+            <td>{{$model->email}}</td>
+            <td><a href ="{{route('edit',$model->id)}}">Edit</a></td>
             <td>
+            <form method="post" action="{{route('destroy',$model->id)}}" >
+            @csrf
+            @method('DELETE')
+            <input type="submit" value="delete"></td>
+            </form>
+
+        
             @empty
             <p> success </p>
             @endforelse

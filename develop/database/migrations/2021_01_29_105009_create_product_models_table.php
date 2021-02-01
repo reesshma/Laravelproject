@@ -13,11 +13,11 @@ class CreateProductModelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_models', function (Blueprint $table) {
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name',191);
             $table->integer('age');
-            $table->integer('phone_name');
+            $table->integer('phone_number');
             $table->string('email');
             $table->timestamps();
         });
@@ -30,6 +30,6 @@ class CreateProductModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_models');
+        Schema::dropIfExists('products');
     }
 }

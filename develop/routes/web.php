@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SampleController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\EmployeeController;
 
 
 
@@ -47,7 +48,24 @@ Route::get('/nes', [SampleController::class, 'nam1']);
 Route::get('/nest1', [SampleController::class, 'nam2']);
 Route::get('/super', [SampleController::class, 'list'])->name('list');
 
-Route::get('deploy', [ProductController::class, 'show'])->name('first');
-Route::post('deploy', [ProductController::class, 'create'])-> name('first1'); 
-Route::get('supress', [ProductController::class, 'index'])-> name('first3');
+Route::get('products/index', [ProductController::class, 'index'])->name('detail');
+Route::post('products/store', [ProductController::class, 'store'])-> name('details');
+Route::get('products/create', [ProductController::class, 'create'])-> name('edit'); 
+Route::get('products/edit/{id}', [ProductController::class, 'edit'])-> name('edit'); 
+Route::put('products/update/{id}', [ProductController::class, 'update'])-> name('update'); 
+Route::delete('products/destroy/{id}', [ProductController::class, 'destroy'])-> name('destroy'); 
+
+
+Route::group(['prefix' => 'employees', 'as' => 'employees.'],
+function (){
+    Route::get('index', [EmployeeController::class, 'index'])->name('index'); 
+    Route::get('create', [EmployeeController::class, 'create'])->name('create');  
+    Route::post('store', [EmployeeController::class, 'store'])->name('store'); 
+    Route::get('edit', [EmployeeController::class, 'edit'])->name('edit');
+    Route::put('update', [EmployeeController::class, 'update'])->name('update');
+    Route::delete('delete', [EmployeeController::class, 'destroy'])->name('destroy');              
+});
+
+
+
 
