@@ -56,16 +56,24 @@ Route::put('products/update/{id}', [ProductController::class, 'update'])-> name(
 Route::delete('products/destroy/{id}', [ProductController::class, 'destroy'])-> name('destroy'); 
 
 
-Route::group(['prefix' => 'employees', 'as' => 'employees.'],
+Route::group(['prefix' => 'employees', 'as' => 'employees.', 'middleware' => 'auth'],
 function (){
     Route::get('index', [EmployeeController::class, 'index'])->name('index'); 
     Route::get('create', [EmployeeController::class, 'create'])->name('create');  
     Route::post('store', [EmployeeController::class, 'store'])->name('store'); 
-    Route::get('edit', [EmployeeController::class, 'edit'])->name('edit');
-    Route::put('update', [EmployeeController::class, 'update'])->name('update');
-    Route::delete('delete', [EmployeeController::class, 'destroy'])->name('destroy');              
+    Route::get('edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [EmployeeController::class, 'update'])->name('update');
+    Route::delete('destroy/{id}', [EmployeeController::class, 'destroy'])->name('destroy');              
 });
 
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
