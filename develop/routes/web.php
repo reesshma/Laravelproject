@@ -56,7 +56,7 @@ Route::put('products/update/{id}', [ProductController::class, 'update'])-> name(
 Route::delete('products/destroy/{id}', [ProductController::class, 'destroy'])-> name('destroy'); 
 
 
-Route::group(['prefix' => 'employees', 'as' => 'employees.', 'middleware' => 'auth'],
+Route::group(['prefix' => 'employees', 'as' => 'employees.'],
 function (){
     Route::get('index', [EmployeeController::class, 'index'])->name('index'); 
     Route::get('create', [EmployeeController::class, 'create'])->name('create');  
@@ -77,3 +77,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('file', [ProductController::class, 'file'])->name('file');
+Route::post('stores', [ProductController::class, 'stores'])->name('stores');
+Route::get('assest', [ProductController::class, 'assest'])->name('assest');

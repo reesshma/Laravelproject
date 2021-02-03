@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use App\Models\Employee ;
+use Carbon\Carbon ;
 
 class EmployeeController extends Controller
 {
@@ -35,6 +36,8 @@ class EmployeeController extends Controller
             'dob' => 'required',
             'email' => 'required|min:6|max:20',
             'password' => 'required|min:6|regex:/^.+@.+$/i|max:15',
+            'emp_roles' => 'required',
+            'file_name' => 'required|mimes:pdf, docx, xlsx, xls',
         ],[
             'first_name.required' => 'Enter your FirstName',
             'first_name.min' => 'FirstName should be atleast :min characters',
@@ -52,7 +55,14 @@ class EmployeeController extends Controller
             'dob.required' => 'Fill your DOB',
             'email.required' => 'We need your email address',
             'password.required' => 'Please fill your password',
+            'emp_roles.required' => 'Please Select your Employee Role',
+            'file_name.required' =>'Please upload your File',
+            'file_name.mimes' => 'supported files are pdf, docx, xlsx, xls',
         ]);
+        $timeStamp = Carbon::now()->format('Y_m_d_H_i_s');
+        $fileExtension = $request->file_name->extension();
+        $fileName = $timeStamp.'.'.$fileExtension;
+        $request->file_name->storeAs('public/images', $fileName);
         $employee = new Employee;
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;
@@ -65,7 +75,9 @@ class EmployeeController extends Controller
         $employee->pincode = $request->pincode;
         $employee->dob = $request->dob;
         $employee->email = $request->email;
-        $employee->password =bcrypt($request->password);
+        $employee->password = bcrypt($request->password);
+        $employee->emp_roles = implode(',',$request->emp_roles);
+        $employee->file_name = $fileName;
         $employee->save();
         return redirect()->route('employees.index');
     }
@@ -95,7 +107,9 @@ class EmployeeController extends Controller
         $employee->pincode = $request->pincode;
         $employee->dob = $request->dob;
         $employee->email = $request->email;
-        $employee->password =bcrypt($request->password);
+        $employee->password = bcrypt($request->password);
+        $employee->emp_roles = $request->emp_roles;
+        $employee->file_name = $request->file_name;
         $employee->update();
         return redirect()->route('employees.index');
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\View;
 use App\Models\Product ;
+use App\Models\File ;
+use Carbon\Carbon ;
 
 
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ class ProductController extends Controller
         return view::make('formexample');
     }
     public function store(Request $request){
-        $request->validate([
+        /*$request->validate([
             'name' => 'required|min:6|max:10',
             'age' => 'required',
             'phone_number' => 'required',
@@ -40,7 +42,8 @@ class ProductController extends Controller
         $form->phone_number = $request->phone_number;
         $form->email = $request->email;
         $form->save();
-        return redirect()->route('detail')->with("Success","form have been submitted");
+        return redirect()->route('detail')->with("Success","form have been submitted");*/
+        
     }
     public function edit($id){
         $model = Product::find($id);
@@ -62,5 +65,33 @@ class ProductController extends Controller
         $model = Product::find($id);
         $model->delete();
         //return view::make('formlist', ['users' => $model]);
+    }
+    public function file(){
+        return View::make('file');
+    }
+    public function stores(Request $request){
+        //dd($request->all());
+        $request->validate([
+            'file_name' => 'required|image|mimes:jpg,png,gif,svg,jpeg',
+        ],[
+            'file_name.required' => 'Please upload your File',
+            'file_name.max' => 'File should be max:2048mb', 
+            'file_name.min' => 'File should be min:1024mb',
+            'file_name.mimes' => 'supported mimes:jpg,png,gif,svg,jpeg',
+        ]);
+        $timeStamp = Carbon::now()->format('Y_m_d_H_i_s');
+        
+        //dd($file);
+        $fileExtension = $request->file_name->extension();
+        $fileName = $timeStamp.'.'.$fileExtension;
+        //dd($fileName);
+        $request->file_name->storeAs('images', $fileName);
+        $form = new File;
+        $form->file_name = $fileName;
+        $form->save();
+        
+    }
+    public function assest(){
+        dd(asset('storage/images'));
     }
 }

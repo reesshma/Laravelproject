@@ -14,6 +14,9 @@
         <td>pincode</td>
         <td>DOB</td>
         <td>Email</td>
+        <td>Password</td>
+        <td>Employee Roles</td>
+        <td>Filename</td>
         <td>Operation</td>
         <td>Operation</td>
     </tr>    
@@ -33,6 +36,9 @@
             <td>{{$employee->pincode}}</td>
             <td>{{$employee->dob}}</td>
             <td>{{$employee->email}}</td>
+            <td>{{$employee->password}}</td>
+            <td>{{$employee->emp_roles}}</td>
+            <td>{{$employee->file_name}}</td>
             <td><a href ="{{route('employees.edit',$employee->id)}}">Edit</a></td>
             <td>
             <form method="post" action="{{route('employees.destroy',$employee->id)}}" >

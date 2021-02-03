@@ -115,14 +115,30 @@
                         <label for="password">Password </label>
                     </div>
                     <div class="col-6 mb-3"> 
-                        <input type="password" name="password" id="password" value="{{$users['password']}}"/>
+                        <input type="password" name="password" id="password" value=""/>
                     </div>
                     <div class="col-6">
                         <label for="cpassword">Confrim Password </label>
                     </div>
                     <div class="col-6 mb-3"> 
-                        <input type="password" name="cpassword" id="cpassword" value="{{$users['cpassword']}}"/>
+                        <input type="password" name="cpassword" id="cpassword" value=""/>
                     </div>
+                    <div class="col-6">
+                        <label for="">Employee Role</label>
+                    </div>
+                    <div class="col-6 mb-4">
+                    @php $emp_roles = explode(',',$users['emp_roles']); @endphp
+                        <input type="checkbox" id="webdeveloper" name="emp_roles[]" value="webdeveloper" @if(in_array('webdeveloper',$emp_roles)) checked @endif >webdeveloper
+                        <input type="checkbox" id="androiddeveloper" name="emp_roles[]" value="androiddeveloper" @if(in_array('androiddeveloper',$emp_roles)) checked @endif  >Androiddeveloper
+                        <input type="checkbox" id="tester" name="emp_roles[]" value="tester" @if(in_array('tester',$emp_roles)) checked @endif >Tester
+                    </div>
+                    <div class="col-6">
+                        <label>File</label>
+                    </div>
+                    <div class="col-6 mb-4">    
+                        <input type="file" id="myFile" name="file_name" value=""/>
+                        <a target="_blank" href="{{ asset('storage/images/'.$users['file_name']) }}">Download</a> 
+                    </div>        
                     <div class="col-12">        
                             <button type="submit" style="align-center" class="btn btn-success">submit</button>
                     </div>
