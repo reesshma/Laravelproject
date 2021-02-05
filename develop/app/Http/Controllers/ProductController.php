@@ -94,4 +94,26 @@ class ProductController extends Controller
     public function assest(){
         dd(asset('storage/images'));
     }
+    public function dashboard(){
+        return view::make('dashboard');
+    }
+    public function admin(){
+        return view::make('admindashboard');
+    }
+    public function user(){
+        $age=[];
+        for($ages=18; $ages<70; $ages++){
+            $age[] = $ages;
+        }
+        $state=['TamilNadu','AndhraPradesh','Kerala','Maharastra','Uttarpradesh'];
+        $country=['India','UK'];
+        return view::make('userdashboard',['age' => $age,'state' => $state,'country' => $country]);
+    }
+    public function manager(){
+        return view::make('managerdashboard');
+    }
+    public function reeshu(){
+        //dd('hi');
+        dd(config('reesshma.role'));
+    }
 }

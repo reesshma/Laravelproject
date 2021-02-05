@@ -34,12 +34,22 @@
                     </div>
                     <div class="col-6 mb-3"> 
                         <input type="text" name="first_name" id="first_name" value="{{$users['first_name']}}"/>
+                        <div class="text-danger">
+                        @if($errors->has('first_name'))
+                        {{ $errors->first('first_name') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="last_name">LastName </label>
                     </div>
                     <div class="col-6 mb-3"> 
                         <input type="text" name="last_name" id="last_name" value="{{$users['last_name']}}"/>
+                        <div class="text-danger">
+                        @if($errors->has('last_name'))
+                        {{ $errors->first('last_name') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="gender">Gender </label>
@@ -47,12 +57,22 @@
                     <div class="col-6 mb-3"> 
                         <input type="radio" name="gender" id="gender" value="female" {{$users['gender'] == 'female' ? 'checked': ''}} />Female
                         <input type="radio" name="gender" id="gender" value="male" {{$users['gender'] == 'male' ? 'checked': ''}} />Male
+                        <div class="text-danger">
+                        @if($errors->has('gender'))
+                        {{ $errors->first('gender') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="city">City </label>
                     </div>
                     <div class="col-6 mb-3"> 
                         <input type="text" name="city" id="city" value="{{$users['city']}}"/>
+                        <div class="text-danger">
+                        @if($errors->has('city'))
+                        {{ $errors->first('city') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="age">Select your Age</label>
@@ -63,7 +83,12 @@
                             @foreach($age as $key => $value)
                             <option name="age" value="{{$key}}" {{$users['age'] == $key ? 'selected': ''}}>{{$value}}</option>
                             @endforeach
-                        </select>    
+                        </select>
+                        <div class="text-danger"> 
+                            @if($errors->has('age'))
+                            {{ $errors->first('age') }}
+                            @endif
+                        </div>      
                     </div>
                     <div class="col-6">
                         <label for="state">Select your State</label>
@@ -74,7 +99,12 @@
                             @foreach($state as $key => $value)
                             <option name="state" value="{{$key}}" {{$users['state'] == $key ? 'selected': ''}}>{{$value}}</option>
                             @endforeach
-                        </select>    
+                        </select>  
+                        <div class="text-danger">
+                            @if($errors->has('state'))
+                            {{ $errors->first('state') }}
+                            @endif
+                            </div>   
                     </div>
                     <div class="col-6">
                         <label for="country">Select your Country </label>
@@ -85,25 +115,45 @@
                             @foreach($country as $key => $value)
                             <option name="country" value="{{$key}}" {{$users['country'] == $key ? 'selected': ' '}}>{{$value}}</option>
                             @endforeach
-                        </select>    
+                        </select> 
+                        <div class="text-danger">
+                            @if($errors->has('country'))
+                            {{ $errors->first('country') }}
+                            @endif 
+                            </div>     
                     </div>
                     <div class="col-6">
                         <label for="phone_number">PhoneNumber </label>
                     </div>
                     <div class="col-6 mb-3"> 
                         <input type="tel" name="phone_number" id="phone_number" value="{{$users['phone_number']}}"/>
+                        <div class="text-danger">
+                        @if($errors->has('phone_number'))
+                        {{ $errors->first('phone_number') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="pincode">Pincode </label>
                     </div>
                     <div class="col-6 mb-3"> 
                         <input type="number" name="pincode" id="pincode" value="{{$users['pincode']}}"/>
+                        <div class="text-danger">
+                        @if($errors->has('pincode'))
+                        {{ $errors->first('pincode') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="dob">DOB </label>
                     </div>
                     <div class="col-6 mb-3"> 
                         <input type="date" name="dob" id="dob" value="{{$users['dob']}}"/>
+                        <div class="text-danger">
+                        @if($errors->has('dob'))
+                        {{ $errors->first('dob') }}
+                        @endif
+                        </div>
                     </div>
                     <div class="col-6">
                         <label for="email">Email </label>
@@ -136,8 +186,13 @@
                         <label>File</label>
                     </div>
                     <div class="col-6 mb-4">    
-                        <input type="file" id="myFile" name="file_name" value=""/>
+                        <input type="file" id="myFile" name="file_name" value="{{$users['file_name']}}"/>
+                        @if (strpos($users['file_name'],'.pdf') !== false || strpos($users['file_name'], '.docx') !== false || strpos($users['file_name'], '.xlsx') !== false || strpos($users['file_name'], '.xls') !== false)
                         <a target="_blank" href="{{ asset('storage/images/'.$users['file_name']) }}">Download</a> 
+        
+                        @elseif (strpos($users['file_name'], '.jpg') !== false || strpos($users['file_name'], '.png') !== false || strpos($users['file_name'], '.gif') !== false || strpos($users['file_name'], '.svg') !== false || strpos($users['file_name'], '.jpeg') !== false)
+                        <img  src="{{asset('storage/images/'.$users['file_name'])}}"   style="width: 80px;height: 80px"/>
+                        @endif
                     </div>        
                     <div class="col-12">        
                             <button type="submit" style="align-center" class="btn btn-success">submit</button>
